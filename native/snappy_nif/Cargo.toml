@@ -1,0 +1,13 @@
+[package]
+name = "snappy_nif"
+version = "0.1.0"
+authors = []
+edition = "2021"
+
+[lib]
+name = "snappy_nif"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.36.1"
+snap = "1.1"

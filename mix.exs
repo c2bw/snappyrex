@@ -27,6 +27,7 @@ defmodule Snappyrex.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:ex_doc, "~> 0.37.3", only: :dev, runtime: false},
       {:rustler, "~> 0.36.1", runtime: false}
     ]
   end
@@ -34,6 +35,7 @@ defmodule Snappyrex.MixProject do
   defp package do
     [
       name: "snappyrex",
+      source_url: @url,
       files: [
         "lib",
         "native",
@@ -42,7 +44,7 @@ defmodule Snappyrex.MixProject do
         "mix.exs",
         "mix.lock",
         "README.md",
-        "LICENSE.md"
+        "LICENSE"
       ],
       licenses: ["MIT"],
       links: %{

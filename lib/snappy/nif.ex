@@ -1,5 +1,6 @@
 defmodule Snappy.Nif do
   use Rustler, otp_app: :snappyrex, crate: "snappy_nif"
+  @moduledoc false
 
   @doc """
    Compress a binary in the Snappy _frame_ format.

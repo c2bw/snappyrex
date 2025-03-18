@@ -14,13 +14,6 @@ defmodule Snappyrex do
   iex> Snappyrex.decompress(<<255, 6, 0, 0, 115, 78, 97, 80, 112, 89, 1, 9, 0, 0, 187, 31, 28, 25, 104, 101, 108, 108, 111>>, format: :frame)
   {:ok, "hello"}
   ```
-
-
-  ### Credits
-
-  [rusterlium/rustler](https://github.com/rusterlium/rustler)
-
-  [Rust `snap` package](https://github.com/BurntSushi/rust-snappy)
   """
   import Snappy.Nif
 

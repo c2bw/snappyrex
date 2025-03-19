@@ -1,4 +1,4 @@
-# Snappyrex
+# Snappyrex [![Hex Version](https://img.shields.io/hexpm/v/snappyrex.svg)](https://hex.pm/packages/snappyrex) [![Hex Docs](https://img.shields.io/badge/docs-hexpm-blue.svg)](https://hexdocs.pm/snappyrex/)
 
   Snappyrex is a [`Rustler`](https://github.com/rusterlium/rustler) wrapper leveraging the [`snap`](https://docs.rs/snap) package as a NIF for fast Snappy compression/decompression in Elixir.
 

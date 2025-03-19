@@ -12,6 +12,7 @@ defmodule Snappyrex.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
+      docs: docs(),
       description: "Snappy (Rust) NIF for Elixir",
       test_coverage: [ignore_modules: [Snappy.Nif]]
     ]
@@ -51,6 +52,16 @@ defmodule Snappyrex.MixProject do
         "GitHub" => @url,
         "Documentation" => "https://hexdocs.pm/snappyrex"
       }
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      name: "Snappyrex",
+      canonical: "http://hexdocs.pm/snappyrex",
+      source_url: @url,
+      extras: ["README.md", "LICENSE"]
     ]
   end
 end

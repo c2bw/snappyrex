@@ -1,6 +1,8 @@
 # Snappyrex [![Hex Version](https://img.shields.io/hexpm/v/snappyrex.svg)](https://hex.pm/packages/snappyrex) [![Hex Docs](https://img.shields.io/badge/docs-hexpm-blue.svg)](https://hexdocs.pm/snappyrex/)
 
-  Snappyrex is a [`Rustler`](https://github.com/rusterlium/rustler) wrapper leveraging the [`snap`](https://docs.rs/snap) package as a NIF for fast Snappy compression/decompression in Elixir.
+Fast Snappy compression/decompression in Elixir.
+
+Uses the [`snap`](https://docs.rs/snap) package as a NIF, created with [`Rustler`](https://github.com/rusterlium/rustler).
 
 ## Installation
 
@@ -13,6 +15,8 @@ def deps do
   ]
 end
 ```
+
+***Note: Rust toolchain is required to compile the library.***
 
 ### Usage
 
@@ -32,6 +36,29 @@ iex> Snappyrex.decompress(<<255, 6, 0, 0, 115, 78, 97, 80, 112, 89, 1, 9, 0, 0, 
 
 ### Credits
 
-[rusterlium/rustler](https://github.com/rusterlium/rustler)
+[github.com/rusterlium/rustler](https://github.com/rusterlium/rustler)
 
 [Rust `snap` package](https://github.com/BurntSushi/rust-snappy)
+
+
+### Performance
+
+Tested using [`benchee`](https://github.com/bencheeorg/benchee) against [`snappyer`](https://github.com/zmstone/snappyer):
+
+```
+Name                ips        average  deviation         median         99th %
+snappyrex        161.32        6.20 ms     ±2.13%        6.17 ms        6.73 ms
+snappyer          32.05       31.20 ms     ±0.52%       31.17 ms       31.75 ms
+
+Comparison:
+snappyrex        161.32
+snappyer          32.05 - 5.03x slower +25.00 ms
+
+Memory usage statistics:
+
+Name         Memory usage
+snappyrex         1.20 KB
+snappyer          1.09 KB - 0.91x memory usage -0.10938 KB
+```
+
+Input is [`testdata`](https://github.com/google/snappy/tree/49087d4e1463707da50f9a53da80d5af932418ce/testdata) from the official `google/snappy` repository

@@ -1,7 +1,7 @@
 defmodule Snappyrex.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
   @url "https://github.com/c2bw/snappyrex"
 
   def project do
@@ -13,7 +13,7 @@ defmodule Snappyrex.MixProject do
       deps: deps(),
       package: package(),
       docs: docs(),
-      description: "Snappy (Rust) NIF for Elixir",
+      description: "Snappy compression/decompression for Elixir as a Rust NIF",
       test_coverage: [ignore_modules: [Snappy.Nif]]
     ]
   end

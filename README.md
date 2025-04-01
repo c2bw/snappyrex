@@ -11,7 +11,7 @@ The package can be installed by adding `snappyrex` to your list of dependencies 
 ```elixir
 def deps do
   [
-    {:snappyrex, "~> 0.1.0"}
+    {:snappyrex, "~> 0.1.1"}
   ]
 end
 ```
@@ -53,12 +53,6 @@ snappyer          32.05       31.20 ms     ±0.52%       31.17 ms       31.75 ms
 Comparison:
 snappyrex        161.32
 snappyer          32.05 - 5.03x slower +25.00 ms
-
-Memory usage statistics:
-
-Name         Memory usage
-snappyrex         1.20 KB
-snappyer          1.09 KB - 0.91x memory usage -0.10938 KB
 ```
 
 Input is [`testdata`](https://github.com/google/snappy/tree/49087d4e1463707da50f9a53da80d5af932418ce/testdata) from the official `google/snappy` repository

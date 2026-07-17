@@ -1,6 +1,5 @@
 use rustler::{Binary, Error, OwnedBinary};
 use std::io::{Read, Write};
-use snap;
 
 // Frame format
 

@@ -28,6 +28,7 @@ defmodule Snappyrex.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:benchee, "~> 1.3", only: :dev, runtime: false},
       {:ex_doc, "~> 0.37.3", only: :dev, runtime: false},
       {:rustler, "~> 0.36.1", runtime: false}
     ]

@@ -5,7 +5,7 @@ use std::io::{Read, Write};
 
 const SNAPPY_STREAM_IDENTIFIER: &[u8] = b"\xff\x06\x00\x00sNaPpY";
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 fn frame_compress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a>, Error> {
     if data.is_empty() {
         return Ok(vec_to_binary(SNAPPY_STREAM_IDENTIFIER.to_vec(), env));
@@ -21,7 +21,7 @@ fn frame_compress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<
     Ok(vec_to_binary(compressed, env))
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 fn frame_decompress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a>, Error> {
     if data.is_empty() {
         return Err(Error::Atom("decompression_failed"));
@@ -37,7 +37,7 @@ fn frame_decompress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binar
 
 // Raw Format
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 fn raw_compress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a>, Error> {
     let compressed = snap::raw::Encoder::new()
         .compress_vec(&data)
@@ -45,7 +45,7 @@ fn raw_compress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a
     Ok(vec_to_binary(compressed, env))
 }
 
-#[rustler::nif]
+#[rustler::nif(schedule = "DirtyCpu")]
 fn raw_decompress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a>, Error> {
     let decompressed = snap::raw::Decoder::new()
         .decompress_vec(&data)

@@ -40,8 +40,8 @@ defmodule Snappyrex.MixProject do
       files: [
         "lib",
         "native",
-        "cargo.toml",
-        "cargo.lock",
+        "Cargo.toml",
+        "Cargo.lock",
         "mix.exs",
         "mix.lock",
         "README.md",

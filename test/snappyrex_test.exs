@@ -49,6 +49,11 @@ defmodule SnappyrexTest do
       assert {:error, :invalid_format} = Snappyrex.decompress("data", format: :invalid)
     end
 
+    test "returns error for invalid detect option" do
+      assert {:error, :invalid_detect} = Snappyrex.decompress("data", detect: :invalid)
+      assert {:error, :invalid_detect} = Snappyrex.decompress("data", detect: nil)
+    end
+
     test "auto-detects format when detect: true" do
       frame_data = <<255, 6, 0, 0, 115, 78, 97, 80, 112, 89, 1, 9, 0, 0, 187, 31, 28, 25, 104, 101, 108, 108, 111>>
       assert {:ok, "hello"} = Snappyrex.decompress(frame_data, format: :raw, detect: true)

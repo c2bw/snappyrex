@@ -48,22 +48,30 @@ defmodule Snappyrex do
   - `:format` - `:frame` or `:raw` (default: `:raw`)
   - `:detect` - `true` or `false` (default: `false`)
   """
-  @spec decompress(binary, keyword()) :: {:ok, binary} | {:error, :invalid_format | :decompression_failed}
+  @spec decompress(binary, keyword()) ::
+          {:ok, binary} | {:error, :invalid_format | :invalid_detect | :decompression_failed}
   def decompress(data, opts \\ []) when is_binary(data) do
     expected_format = Keyword.get(opts, :format, :raw)
 
-    detected =
-      Keyword.get(opts, :detect, false)
-      |> case do
-        false -> nil
-        true -> Snappy.Helper.detect_compressed_format(data)
-      end
-      |> case do
-        nil -> nil
-        ^expected_format -> nil
-        detected -> detected
-      end
+    case Keyword.get(opts, :detect, false) do
+      false ->
+        do_decompress(data, expected_format, nil)
 
+      true ->
+        detected =
+          case Snappy.Helper.detect_compressed_format(data) do
+            ^expected_format -> nil
+            detected -> detected
+          end
+
+        do_decompress(data, expected_format, detected)
+
+      _ ->
+        {:error, :invalid_detect}
+    end
+  end
+
+  defp do_decompress(data, expected_format, detected) do
     expected_format
     |> case do
       :raw -> raw_decompress(data)

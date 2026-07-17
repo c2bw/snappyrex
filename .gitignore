@@ -28,5 +28,5 @@ snappyrex-*.tar
 # Rust binary artifacts
 /target/
 
-# Ignore the compiled dynamic library for snappy_nif
-/priv/native/libsnappy_nif.dll
+# Ignore the compiled dynamic library for snappy_nif on all platforms
+/priv/native/libsnappy_nif.*

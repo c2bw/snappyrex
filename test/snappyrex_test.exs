@@ -2,6 +2,8 @@ defmodule SnappyrexTest do
   use ExUnit.Case
   doctest Snappyrex
 
+  @snappy_stream_identifier <<255, 6, 0, 0, 115, 78, 97, 80, 112, 89>>
+
   describe "compress/2" do
     test "compresses data in raw format by default" do
       expected = <<5, 16, 104, 101, 108, 108, 111>>
@@ -11,6 +13,11 @@ defmodule SnappyrexTest do
     test "compresses data in frame format" do
       expected = <<255, 6, 0, 0, 115, 78, 97, 80, 112, 89, 1, 9, 0, 0, 187, 31, 28, 25, 104, 101, 108, 108, 111>>
       assert {:ok, ^expected} = Snappyrex.compress("hello", format: :frame)
+    end
+
+    test "compresses empty data as a valid frame" do
+      expected = @snappy_stream_identifier
+      assert {:ok, ^expected} = Snappyrex.compress(<<>>, format: :frame)
     end
 
     test "returns error for invalid format" do
@@ -27,6 +34,15 @@ defmodule SnappyrexTest do
     test "decompresses frame format" do
       compressed = <<255, 6, 0, 0, 115, 78, 97, 80, 112, 89, 1, 9, 0, 0, 187, 31, 28, 25, 104, 101, 108, 108, 111>>
       assert {:ok, "hello"} = Snappyrex.decompress(compressed, format: :frame)
+    end
+
+    test "decompresses and detects an empty frame" do
+      assert {:ok, ""} = Snappyrex.decompress(@snappy_stream_identifier, format: :frame)
+      assert {:ok, ""} = Snappyrex.decompress(@snappy_stream_identifier, detect: true)
+    end
+
+    test "rejects a headerless empty frame" do
+      assert {:error, :decompression_failed} = Snappyrex.decompress(<<>>, format: :frame)
     end
 
     test "returns error for invalid format" do

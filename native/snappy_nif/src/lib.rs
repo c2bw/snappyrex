@@ -3,8 +3,14 @@ use std::io::{Read, Write};
 
 // Frame format
 
+const SNAPPY_STREAM_IDENTIFIER: &[u8] = b"\xff\x06\x00\x00sNaPpY";
+
 #[rustler::nif]
 fn frame_compress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a>, Error> {
+    if data.is_empty() {
+        return Ok(vec_to_binary(SNAPPY_STREAM_IDENTIFIER.to_vec(), env));
+    }
+
     let mut encoder = snap::write::FrameEncoder::new(Vec::new());
     encoder
         .write_all(&data)
@@ -17,6 +23,10 @@ fn frame_compress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<
 
 #[rustler::nif]
 fn frame_decompress<'a>(env: rustler::Env<'a>, data: Binary<'a>) -> Result<Binary<'a>, Error> {
+    if data.is_empty() {
+        return Err(Error::Atom("decompression_failed"));
+    }
+
     let mut decoder = snap::read::FrameDecoder::new(&data[..]);
     let mut buf = Vec::new();
     decoder

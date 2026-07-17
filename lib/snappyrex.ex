@@ -23,8 +23,7 @@ defmodule Snappyrex do
   ## Options
   - `:format` - `:frame` or `:raw` (default: `:raw`)
   """
-  @spec compress(binary, keyword()) ::
-          {:ok, binary} | {:error, :invalid_format | :compression_failed}
+  @spec compress(binary, keyword()) :: {:ok, binary} | {:error, :invalid_format | :compression_failed}
   def compress(data, opts \\ []) when is_binary(data) do
     Keyword.get(opts, :format, :raw)
     |> case do
@@ -49,8 +48,7 @@ defmodule Snappyrex do
   - `:format` - `:frame` or `:raw` (default: `:raw`)
   - `:detect` - `true` or `false` (default: `false`)
   """
-  @spec decompress(binary, keyword()) ::
-          {:ok, binary} | {:error, :invalid_format | :decompression_failed}
+  @spec decompress(binary, keyword()) :: {:ok, binary} | {:error, :invalid_format | :decompression_failed}
   def decompress(data, opts \\ []) when is_binary(data) do
     expected_format = Keyword.get(opts, :format, :raw)
 
